@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import OrderForm, FeedbackForm
+from .models import Feedback
+
 # Create your views here.
 
 def index(request):
@@ -21,13 +23,19 @@ def contact_us(request):
 
 def reviews(request):
     form = FeedbackForm(request.POST)
+    last_three_feedback = Feedback.objects.all().order_by('-id')[:3]
     if request.method == "POST":
-        print(form.data)
+        #print(form.data)
         if form.is_valid():
             form.save()
+            last_three_feedback = Feedback.objects.all().order_by('-id')[:3]
             return redirect("home")
+    
     context = {
-        'form':form
+        'form':form,
+        'feedback1':last_three_feedback[2],
+        'feedback2':last_three_feedback[1],
+        'feedback3':last_three_feedback[0]
     }
     return render(request,"main/reviews.html",context)
 

@@ -82,6 +82,7 @@ class FeedbackForm(ModelForm):
                 "placeholder":"Напишите отзыв здесь", 
                 "aria-required":"false"
             }),
+            #в review.html в возвращаемой кнопке ввел name="recommendation", без вставления формы
             "recommendation":RadioSelect(choices=OPTIONS,attrs={
                 "class":"b33LKJ"
             }),
